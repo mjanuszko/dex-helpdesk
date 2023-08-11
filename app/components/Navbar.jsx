@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from './dex-logo.png';
+import LogoutButton from './LogoutButton';
 
-function Navbar() {
+function Navbar({ user }) {
   return (
     <nav>
       <Image
@@ -14,7 +15,21 @@ function Navbar() {
       />
       <h1>Dex Helpdesk</h1>
       <Link href='/'>Dashboard</Link>
-      <Link href='/tickets/'>Tickets</Link>
+      <Link href='/tickets/' className='mr-auto'>
+        Tickets
+      </Link>
+      {user && (
+        <>
+          <span>Hello, {user.email}</span>
+          <LogoutButton />
+        </>
+      )}
+      {!user && (
+        <>
+          <Link href='/login/'>Log in</Link>
+          <Link href='/signup/'>Sign up</Link>
+        </>
+      )}
     </nav>
   );
 }

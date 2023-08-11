@@ -1,10 +1,20 @@
 import Link from 'next/link';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-function AuthLayout({ children }) {
+async function AuthLayout({ children }) {
+  const supabase = createServerComponentClient({ cookies });
+  const { data } = await supabase.auth.getSession();
+
+  if (data.session) {
+    redirect('/');
+  }
+
   return (
     <>
       <nav>
-        <h1>Dex Helpdesk</h1>
+        <h1 className='mr-auto'>Dex Helpdesk</h1>
         <Link href='/login/'>Log in</Link>
         <Link href='/signup/'>Sign up</Link>
       </nav>
