@@ -2,6 +2,15 @@ import { notFound } from 'next/navigation';
 
 export const dynamicParams = false;
 
+export async function generateMetadata({ params }) {
+  const id = params.id;
+  const response = await fetch(`http://localhost:4000/tickets/${id}`);
+  const ticket = await response.json();
+  return {
+    title: `${ticket.title} - Dex Helpdesk`
+  };
+}
+
 export async function generateStaticParams() {
   const response = await fetch('http://localhost:4000/tickets');
   const tickets = await response.json();
