@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from "next/link";
+import Link from 'next/link';
 
 async function getTickets() {
   const response = await fetch('http://localhost:4000/tickets', {
