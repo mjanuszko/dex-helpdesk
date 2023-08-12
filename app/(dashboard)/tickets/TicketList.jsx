@@ -20,9 +20,6 @@ async function TicketList() {
 
   return (
     <>
-      <Link href='/tickets/create'>
-        <button className='btn-primary'>New Ticket</button>
-      </Link>
       {tickets !== null &&
         tickets.map((ticket) => (
           <div key={ticket.id} className='card my-5'>
