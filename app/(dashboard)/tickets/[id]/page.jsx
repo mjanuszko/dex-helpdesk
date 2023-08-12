@@ -6,7 +6,11 @@ import DeleteButton from './DeleteButton';
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }) {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies()
+  const supabase = createServerComponentClient({
+    cookies: () => cookieStore
+  });
+
   const { data: ticket } = await supabase
     .from('tickets')
     .select()
@@ -18,7 +22,10 @@ export async function generateMetadata({ params }) {
 }
 
 async function getTicket(id) {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies()
+  const supabase = createServerComponentClient({
+    cookies: () => cookieStore
+  });
 
   const { data, error } = await supabase
     .from('tickets')
@@ -36,7 +43,10 @@ async function getTicket(id) {
 async function TicketDetails({ params }) {
   const ticket = await getTicket(params.id);
 
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies()
+  const supabase = createServerComponentClient({
+    cookies: () => cookieStore
+  });
 
   const { data } = await supabase.auth.getSession();
 
