@@ -1,12 +1,7 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import {addTicket} from '@/app/(dashboard)/tickets/create/actions';
+import SubmitButton from '@/app/components/SubmitButton';
 
-function CreateForm(props) {
-  const [isLoading, setIsLoading] = useState(false);
-
+function CreateForm() {
   return (
     <form action={addTicket} className='w-1/2'>
       <label>
@@ -33,10 +28,7 @@ function CreateForm(props) {
           <option value='high'>High Priority</option>
         </select>
       </label>
-      <button className='btn-primary' disabled={isLoading}>
-        {isLoading && <span>Adding...</span>}
-        {!isLoading && <span>Add Ticket</span>}
-      </button>
+      <SubmitButton />
     </form>
   );
 }
