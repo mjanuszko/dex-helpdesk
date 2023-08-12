@@ -16,16 +16,23 @@ function CreateForm(props) {
     const newTicket = {
       title,
       body,
-      priority,
-      user_email: 'user@test.com'
+      priority
     };
 
-    const response = await fetch(' http://localhost:4000/tickets', {
+    const response = await fetch(' http://localhost:3000/api/tickets', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newTicket)
     });
-    if (response.status === 201) {
+
+    const json = await response.json();
+
+    if (json.error) {
+      console.log(json.error);
+    }
+
+    if (json.data) {
+      console.log(json.data);
       router.refresh();
       router.push('/tickets/');
     }
